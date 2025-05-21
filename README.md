@@ -44,3 +44,14 @@ controladores principales.
 - Obtener un producto por ID
 - Actualizar un producto
 - Eliminar un producto
+
+## ❗Consideraciones
+
+- El archivo adminsdk.json no se puede subir a github por lo que se debe crear un archivo
+- Las credenciales de Firebase deben ser configuradas en el archivo `application.properties`.
+
+## 🧑‍💻 Autor
+
+- Diego Pérez
+- BBVA - Java 2 - Alkemy
+
