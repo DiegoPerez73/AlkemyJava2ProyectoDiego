@@ -1,7 +1,7 @@
 # Proyecto CRUD de Productos - Spring Boot + Firebase Firestore
 
-Este proyecto es una aplicación backend desarrollada con **Spring Boot**, que implementa un sistema **CRUD de productos
-**, incorporando **seguridad**, **tests unitarios** y utilizando **Firebase Firestore** como base de datos no
+Este proyecto es una aplicación backend desarrollada con **Spring Boot**, que implementa un sistema **CRUD de productos**,
+incorporando **seguridad**, **tests unitarios** y utilizando **Firebase Firestore** como base de datos no
 relacional.
 
 ## 🚀 Objetivo
