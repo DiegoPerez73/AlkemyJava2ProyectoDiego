@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +16,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
-@Builder(toBuilder = true)
+@NoArgsConstructor
 public class User implements UserDetails {
   @DocumentId
-  private long id;
+  private String id;
 
   @NotBlank
-  @Email
   private String username;
 
   @NotBlank
@@ -37,18 +37,24 @@ public class User implements UserDetails {
         .collect(Collectors.toSet());
   }
 
-  public static class UserBuilder {
-    private Set<Role> roles; // Asegúrate de declarar este campo en el Builder
+  @Override
+  public String getUsername() {
+    return this.username;
+  }
 
-    public UserBuilder roles(Set<Role> roles) {
-      this.roles = roles;
-      return this;
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    public UserBuilder active(boolean active) {
-      this.active = active;
-      return this;
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
   }
 
 }

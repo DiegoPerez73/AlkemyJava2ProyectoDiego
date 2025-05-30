@@ -4,23 +4,20 @@ package com.Java2.proyecto.diego.AlkemyDiego.authSecurity.service.impl;
   import com.Java2.proyecto.diego.AlkemyDiego.authSecurity.dto.AuthResponse;
   import com.Java2.proyecto.diego.AlkemyDiego.authSecurity.service.AuthService;
   import com.Java2.proyecto.diego.AlkemyDiego.authSecurity.service.JwtService;
-  import com.Java2.proyecto.diego.AlkemyDiego.enums.Role;
+  import com.Java2.proyecto.diego.AlkemyDiego.model.User;
   import com.google.cloud.firestore.Firestore;
   import com.google.cloud.firestore.QueryDocumentSnapshot;
-  import lombok.AllArgsConstructor;
   import lombok.RequiredArgsConstructor;
   import lombok.extern.slf4j.Slf4j;
   import org.springframework.security.authentication.AuthenticationManager;
   import org.springframework.security.authentication.BadCredentialsException;
   import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
   import org.springframework.security.core.AuthenticationException;
-  import org.springframework.security.core.userdetails.User;
   import org.springframework.security.core.userdetails.UsernameNotFoundException;
   import org.springframework.security.crypto.password.PasswordEncoder;
   import org.springframework.stereotype.Service;
 
   import java.util.List;
-  import java.util.Set;
 
 @Service
   @RequiredArgsConstructor
@@ -59,7 +56,7 @@ package com.Java2.proyecto.diego.AlkemyDiego.authSecurity.service.impl;
       }
     }
 
-  private User findUserByUsername(String username) {
+  private com.Java2.proyecto.diego.AlkemyDiego.model.User findUserByUsername(String username) {
     try {
       List<QueryDocumentSnapshot> documents = firestore.collection("users")
           .whereEqualTo("username", username)
@@ -71,7 +68,7 @@ package com.Java2.proyecto.diego.AlkemyDiego.authSecurity.service.impl;
         return null;
       }
 
-      return documents.get(0).toObject(User.class);
+      return documents.get(0).toObject(com.Java2.proyecto.diego.AlkemyDiego.model.User.class);
     } catch (Exception e) {
       log.error("Error al buscar usuario en Firestore", e);
       return null;
