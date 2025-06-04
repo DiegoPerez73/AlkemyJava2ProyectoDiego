@@ -25,4 +25,14 @@ public class AuthController {
       return ResponseEntity.status(401).body(e.getMessage());
     }
   }
+
+  @PostMapping("/register")
+  public ResponseEntity<?> register(@RequestBody LoginRequest registerRequest) {
+    try {
+      AuthResponse response = authService.register(registerRequest);
+      return ResponseEntity.ok(response);
+    } catch (RuntimeException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
 }
