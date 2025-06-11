@@ -1,9 +1,7 @@
 package com.Java2.proyecto.diego.AlkemyDiego.controller;
 
 import com.Java2.proyecto.diego.AlkemyDiego.dto.UserDto;
-import com.Java2.proyecto.diego.AlkemyDiego.model.Product;
-import com.Java2.proyecto.diego.AlkemyDiego.model.User;
-import com.Java2.proyecto.diego.AlkemyDiego.service.impl.UserServiceImpl;
+import com.Java2.proyecto.diego.AlkemyDiego.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,29 +12,29 @@ import java.util.List;
 @RequestMapping("/users")
 @AllArgsConstructor
 public class UserController {
-  private final UserServiceImpl userServiceImpl;
+  private final UserService userService;
 
   @GetMapping
   public ResponseEntity<List<UserDto>> findAll() {
-    List<UserDto> users = userServiceImpl.getAllUsers();
+    List<UserDto> users = userService.getAllUsers();
     return ResponseEntity.ok(users);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<UserDto> getUser(@PathVariable("id") String id) {
-    UserDto userdto = userServiceImpl.getUser(id);
+    UserDto userdto = userService.getUser(id);
     return ResponseEntity.ok(userdto);
   }
 
   @PostMapping
   public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-    UserDto created = userServiceImpl.createUser(userDto);
+    UserDto created = userService.createUser(userDto);
     return ResponseEntity.ok(created);
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<UserDto> updateUser(@PathVariable("id") String id, @RequestBody UserDto userDto) {
-    UserDto updated = userServiceImpl.updateUser(id, userDto);
+    UserDto updated = userService.updateUser(id, userDto);
     if (updated == null) {
       return ResponseEntity.notFound().build();
     }
@@ -45,7 +43,7 @@ public class UserController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteUser(@PathVariable("id") String id) {
-    userServiceImpl.deleteUser(id);
+    userService.deleteUser(id);
     return ResponseEntity.noContent().build();
   }
 }
