@@ -3,6 +3,7 @@ package com.Java2.proyecto.diego.AlkemyDiego.security.service.impl;
 import com.Java2.proyecto.diego.AlkemyDiego.dto.UserDto;
 import com.Java2.proyecto.diego.AlkemyDiego.security.dto.AuthResponse;
 import com.Java2.proyecto.diego.AlkemyDiego.security.dto.LoginRequest;
+import com.Java2.proyecto.diego.AlkemyDiego.security.dto.RegisterRequest;
 import com.Java2.proyecto.diego.AlkemyDiego.security.service.AuthService;
 import com.Java2.proyecto.diego.AlkemyDiego.security.service.JwtService;
 import com.Java2.proyecto.diego.AlkemyDiego.service.UserService;
@@ -34,25 +35,16 @@ public class AuthServiceImpl implements AuthService {
     return AuthResponse.builder().token(token).build();
   }
 
-  @Override
-  public AuthResponse register(LoginRequest registerRequest) {
-    String username = registerRequest.getUsername();
-    List<String> roles;
-    //Le agrego logica para asignar roles basados en el nombre de usuario para pruebas.
-    if (username != null && username.toLowerCase().contains("admin")) {
-      roles = List.of("ADMIN");
-    } else {
-      roles = List.of("USER");
-    }
-
+@Override
+public AuthResponse register(RegisterRequest registerRequest) {
     var userDto = UserDto.builder()
-        .username(username)
+        .name(registerRequest.getName())
+        .username(registerRequest.getUsername())
         .password(passwordEncoder.encode(registerRequest.getPassword()))
-        .name("Nombre")
-        .roles(roles)
+        .roles(registerRequest.getRoles())
         .build();
     userService.createUser(userDto);
     String token = jwtService.generateToken(userDto.getUsername(), userDto.getRoles());
     return AuthResponse.builder().token(token).build();
-  }
+}
 }

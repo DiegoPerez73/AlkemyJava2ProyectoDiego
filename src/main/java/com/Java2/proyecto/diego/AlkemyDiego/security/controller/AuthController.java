@@ -2,6 +2,7 @@ package com.Java2.proyecto.diego.AlkemyDiego.security.controller;
 
 import com.Java2.proyecto.diego.AlkemyDiego.security.dto.AuthResponse;
 import com.Java2.proyecto.diego.AlkemyDiego.security.dto.LoginRequest;
+import com.Java2.proyecto.diego.AlkemyDiego.security.dto.RegisterRequest;
 import com.Java2.proyecto.diego.AlkemyDiego.security.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +27,13 @@ public class AuthController {
     }
   }
 
-  @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody LoginRequest registerRequest) {
+@PostMapping("/register")
+public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
     try {
-      AuthResponse response = authService.register(registerRequest);
-      return ResponseEntity.ok(response);
+        AuthResponse response = authService.register(registerRequest);
+        return ResponseEntity.ok(response);
     } catch (RuntimeException e) {
-      return ResponseEntity.badRequest().body(e.getMessage());
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
-  }
+}
 }
