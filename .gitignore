@@ -33,3 +33,4 @@ build/
 .vscode/
 
 src/main/resources/adminsdk.json
+adminsdk.json
