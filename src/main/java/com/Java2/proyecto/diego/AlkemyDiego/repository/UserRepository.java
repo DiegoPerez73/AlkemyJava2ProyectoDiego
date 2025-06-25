@@ -40,7 +40,11 @@ public class UserRepository {
     if (user.getId() == null || user.getId().isEmpty()) {
       user.setId(users.document().getId());
     }
-    users.document(user.getId()).set(user);
+    try {
+      users.document(user.getId()).set(user).get(); // Espera a que termine la escritura
+    } catch (InterruptedException | ExecutionException e) {
+      Thread.currentThread().interrupt();
+    }
   }
 
   public List<User> findAll() {
