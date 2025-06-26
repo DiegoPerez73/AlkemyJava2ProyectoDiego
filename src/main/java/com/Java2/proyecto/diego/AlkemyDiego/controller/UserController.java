@@ -23,6 +23,9 @@ public class UserController {
   @GetMapping("/{id}")
   public ResponseEntity<UserDto> getUser(@PathVariable("id") String id) {
     UserDto userdto = userService.getUser(id);
+    if (userdto == null) {
+      return ResponseEntity.notFound().build();
+    }
     return ResponseEntity.ok(userdto);
   }
 

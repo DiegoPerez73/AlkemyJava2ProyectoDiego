@@ -15,4 +15,7 @@ public class Product {
   private List<ProductType> productoType;
   private double price;
 
+  public boolean isAvailable() {
+    return price > 0;
+  }
 }
